@@ -6,12 +6,12 @@
 Gem::Specification.new do |s|
   s.name = %q{rubyfca}
   s.version = "0.2.3"
-
+  s.required_ruby_version = ">= 1.8.7"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yoichiro Hasebe"]
   s.date = %q{2009-09-04}
   s.default_executable = %q{rubyfca}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{Command line tool for Formal Concept Analysis written in Ruby}
   s.email = %q{yohasebe@gmail.com}
   s.executables = ["rubyfca"]
   s.extra_rdoc_files = [
@@ -19,8 +19,6 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    ".document",
-     ".gitignore",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
@@ -38,7 +36,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Command line tool for Formal Concept Analysis written in Ruby}
   s.test_files = [
     "test/rubyfca_test.rb",
      "test/test_helper.rb"

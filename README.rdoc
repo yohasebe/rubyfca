@@ -11,7 +11,7 @@ Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
 Install the gem:
 
-  $sudo gem install rubyfca --source http://gems.github.com
+  $sudo gem install yohasebe-rubyfca --source http://gems.github.com
 
 == How to Use
 
