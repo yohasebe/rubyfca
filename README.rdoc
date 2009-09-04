@@ -1,18 +1,45 @@
-= rubyfca
+= RubyFCA
 
-Description goes here.
+Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+== Features
+
+* Convert a Conexp's CXT file and generate a Graphviz DOT file, or a PNG/JPG/EPS image file.
+* Adopt the Ganter algorithm (through its Perl implementation of Fcastone by Uta Priss).
+
+== Installation
+
+Install the gem:
+
+  $sudo gem install rubyfca --source http://gems.github.com
+
+== How to Use
+
+  rubyfca [options] <source file> <output file>
+
+  where:
+  <source file>
+         "foo.cxt"
+  <output file>
+         "bar.dot", "bar.png", "bar.jpg", or "bar.eps"
+  [options]:
+         --box, -b:   Use box shaped concept nodes
+        --full, -f:   Do not contract concept labels
+      --legend, -l:   Print the legend of concept nodes (disabled when using circle node shape) (default: true)
+    --coloring, -c:   Color concept nodes (default: true)
+    --straight, -s:   Straighten edges (available when output format is either png, jpg, or eps)
+        --help, -h:   Show this message
+
+
+== ToDo
+
+* Multiple input formats
+* Database connection capability
+
+== Links
+
+under construction
 
 == Copyright
 
-Copyright (c) 2009 Yoichiro Hasebe. See LICENSE for details.
+Copyright (c) 2009 Yoichiro Hasebe and Kow Kuroda. See LICENSE for details.

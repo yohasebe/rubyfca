@@ -1,0 +1,96 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'trollop'
+require 'rubyfca'
+require 'ruby_graphviz'
+
+########## parse options ##########
+
+opts = Trollop::options do
+  version = File.read(File.dirname(__FILE__) + "/../VERSION")
+  banner <<-EOS
+  
+RubuFCA converts Conexp CXT data to Graphviz dot format.
+
+Usage:
+       rubyfca [options] <source file> <output file>
+
+where:
+<source file>
+       ".cxt"
+<output file>
+       ."dot", ".png", ".jpg", or ".eps"
+[options]:
+EOS
+
+  opt :circle,  "Use circle shaped concept nodes", :default=> false
+  opt :full, "Do not contract concept labels", :default=> false
+  opt :legend, "Print the legend of concept nodes (available only when using circle node shape)", :default => false
+  opt :coloring, "Color concept nodes", :default => false
+  opt :straight, "Straighten edges (available when output format is either png, jpg, or eps)", :default => false
+end
+
+############### main program ############### 
+
+if ARGV.size != 2
+  showerror("Input and output files are not set properly", 1) 
+end
+
+filename1 = ARGV[0]  #input  filename
+filename2 = ARGV[1]  #output filename
+
+#
+# extract input and output file types
+#
+input_type  = filename1.slice(/\.[^\.]+\z/).split(//)[1..-1].join("")
+output_type = filename2.slice(/\.[^\.]+\z/).split(//)[1..-1].join("")
+
+if (input_type !~ /\A(cxt|csv)\z/ || output_type !~ /\A(dot|png|jpg|eps)\z/)
+  showerror("These file extensions are not (yet) supported.", 1)
+end
+
+#
+# input cxt data is kept as plain text
+#
+f = File.open(filename1, "r")
+inputdata = f.read
+f.close
+
+#
+# ask for confirmation of overwriting an exisiting file
+#
+if (File.exist?(filename2) && !opts[:sil])
+  print "#{filename2} exists and will be overwritten, OK? [y/n]"
+  var1 = STDIN.gets;
+  if /y/i !~ var1
+    exit;
+  end
+end
+
+#
+# context data is converted to a hash table
+#
+begin
+  ctxt = FormalContext.new(inputdata, opts[:full])
+  ctxt.calcurate
+# rescue => e
+#   puts e
+#   showerror("Source data may have problems. Process aborted.", 1)
+end
+
+#
+# create the output file
+#
+case output_type
+when "dot"
+  File.open(filename2, "w") do |f|
+    f.write(ctxt.generate_dot(opts))
+  end
+when "png"
+  ctxt.generate_img(filename2, "png", opts)
+when "jpg"
+  ctxt.generate_img(filename2, "jpg", opts)
+when "eps"
+  ctxt.generate_img(filename2, "eps", opts)
+end
