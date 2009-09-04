@@ -5,7 +5,7 @@ require 'trollop'
 require 'rubyfca'
 require 'ruby_graphviz'
 
-########## parse options ##########
+################ parse options ##########
 
 opts = Trollop::options do
   version = File.read(File.dirname(__FILE__) + "/../VERSION")
