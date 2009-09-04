@@ -33,7 +33,7 @@ Install the gem:
 
 == ToDo
 
-* Multiple input formats
+* Multiple input formats (such as CSV)
 * Database connection capability
 
 == Links
