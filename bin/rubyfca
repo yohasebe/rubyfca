@@ -72,7 +72,7 @@ end
 # context data is converted to a hash table
 #
 begin
-  ctxt = FormalContext.new(inputdata, opts[:full])
+  ctxt = FormalContext.new(inputdata, !opts[:full])
   ctxt.calcurate
 # rescue => e
 #   puts e

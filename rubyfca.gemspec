@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rubyfca}
-  s.version = "0.2.4"
-
+  s.version = "0.2.5"
+  s.required_ruby_version = "=1.8.7"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yoichiro Hasebe", "Kow Kuroda"]
-  s.date = %q{2009-09-04}
+  s.date = %q{2009-09-14}
   s.default_executable = %q{rubyfca}
   s.description = %q{Command line Formal Concept Ananlysis (FCA) tool written in Ruby}
   s.email = %q{yohasebe@gmail.com}

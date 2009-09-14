@@ -39,7 +39,7 @@ end
 class FormalContext
 
   ## Converte cxt data to three basic structures of objects, attributes, and matrix
-  def initialize(input, label_contraction = true)
+  def initialize(input, label_contraction = false)
     if input.size == 0
       showerror("File is empty", 1)
     end
@@ -309,7 +309,7 @@ class FormalContext
       attrfull = []  
       0.upto(@gammaM.size - 1) do |j|
         if @gammaM[j][i] == 2
-          obj = opts[:full] ? @objects[j] + " " + [0x261C].pack("U") : @objects[j] 
+          obj = opts[:full] ? @objects[j] + " " + [0x261C].pack("U") : @objects[j]
           objfull << obj
         elsif @gammaM[j][i] == 1
           objfull << @objects[j]
@@ -317,7 +317,7 @@ class FormalContext
       end
       0.upto(@muM.size - 1) do |k|
         if @muM[k][i] == 2
-          att = opts[:full] ? @attributes[k] + " " + [0x261C].pack("U") : @attributes[k] 
+          att = opts[:full] ? @attributes[k] + " " + [0x261C].pack("U") : @attributes[k]
           attrfull << att
         elsif @muM[k][i] == 1
           attrfull << @attributes[k]
