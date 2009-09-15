@@ -345,7 +345,7 @@ class FormalContext
         "<tr><td balign=\"left\" align=\"left\" bgcolor=\"#{obj_color}\">#{obj_str}</td></tr>" +
         "</table>>"
 
-        if !attrfull.empty? and !objfull.empty?
+        if !attrfull.empty? or !objfull.empty?
           legend.node("cl#{concept_id}k", :label => concept_id, :style => "invis")
           legend.node("cl#{concept_id}v", :label => leg, :fillcolor => "white")
           legend.rank("cl#{concept_id}k", "cl#{concept_id}v", :style => "invis", :length => "0.0")
