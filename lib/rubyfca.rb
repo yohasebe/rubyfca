@@ -4,7 +4,9 @@
 ## Copyright:: Copyright 2009 Yoichiro Hasebe and Kow Kuroda
 ## License::   GNU GPL version 3
 
-$KCODE ='utf-8'
+# -*- coding: utf-8 -*-
+
+require 'csv'
 require 'ruby_graphviz'
 
 private
@@ -39,22 +41,63 @@ end
 class FormalContext
 
   ## Converte cxt data to three basic structures of objects, attributes, and matrix
-  def initialize(input, label_contraction = false)
+  def initialize(input, mode, label_contraction = false)
     if input.size == 0
       showerror("File is empty", 1)
     end
+    begin
+      case mode
+      when /cxt\z/
+        read_cxt(input)
+      when /csv\z/
+        read_csv(input)
+      end
+    rescue => e
+      showerror("Input data contains a syntax problem.", 1)
+    end
+    @label_contraction = label_contraction
+  end
+  
+  ## process cxt data
+  def read_cxt(input)
     lines = input.split
     t1 = 3
     if (lines[0] !~ /B/i || (2 * lines[1].to_i + lines[2].to_i + t1) != lines.size)
       showerror("Wrong cxt format!", 1)
     end
-    
-    @label_contraction = label_contraction
-    
     @objects    = lines[t1..(lines[1].to_i + t1 - 1)]
     @attributes = lines[(lines[1].to_i + t1) .. (lines[1].to_i + lines[2].to_i + t1 - 1)]
     lines      = lines[(lines[1].to_i + lines[2].to_i + t1) .. lines.size]
-    @matrix     = changecrosssymbol("X", "\\.", lines)
+    @matrix     = changecrosssymbol("X", "\\.", lines)    
+  end
+  
+  # process csv data using the standard csv library
+  def read_csv(input)
+    input = remove_blank(input)
+    data = CSV.parse(input)
+    @objects = trim_ary(data.transpose.first[1..-1])
+    @attributes = trim_ary(data.first[1..-1])
+    @matrix = []
+    data[1..-1].each do |line|
+      @matrix << line[1..-1].collect { |cell| /x/i =~ cell ? 1 : 0 }
+    end
+  end
+  
+  def remove_blank(input)
+    blank_removed = ""
+    input.each do |line|
+      unless /^\s*$/ =~ line
+        blank_removed << line
+      end
+    end
+    blank_removed
+  end
+  
+  def trim_ary(ary)
+    newary = ary.collect do |cell|
+      cell.strip
+    end
+    newary
   end
   
   ## Apply a formal concept analysis on the matrix

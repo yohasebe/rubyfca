@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'trollop'
@@ -18,7 +19,7 @@ Usage:
 
 where:
 <source file>
-       ".cxt"
+       ".cxt", ".csv"
 <output file>
        ."dot", ".png", ".jpg", or ".eps"
 [options]:
@@ -51,7 +52,7 @@ if (input_type !~ /\A(cxt|csv)\z/ || output_type !~ /\A(dot|png|jpg|eps)\z/)
 end
 
 #
-# input cxt data is kept as plain text
+# input data is kept as plain text
 #
 f = File.open(filename1, "r")
 inputdata = f.read
@@ -72,7 +73,7 @@ end
 # context data is converted to a hash table
 #
 begin
-  ctxt = FormalContext.new(inputdata, !opts[:full])
+  ctxt = FormalContext.new(inputdata, input_type, !opts[:full])
   ctxt.calcurate
 # rescue => e
 #   puts e

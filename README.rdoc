@@ -19,7 +19,7 @@ Install the gem:
 
   where:
   <source file>
-         "foo.cxt"
+         "foo.cxt", "foo.csv"
   <output file>
          "bar.dot", "bar.png", "bar.jpg", or "bar.eps"
   [options]:
