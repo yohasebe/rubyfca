@@ -28,10 +28,10 @@ EOS
   opt :circle,  "Use circle shaped concept nodes", :default=> false
   opt :full, "Do not contract concept labels", :default=> false
   opt :legend, "Print the legend of concept nodes (available only when using circle node shape)", :default => false
-  opt :coloring, "Color concept nodes", :default => false
+  opt :coloring, "Color concept nodes [0 = none (default), 1 = lightblue/pink, 2 = monochrome]", :default => 0
   opt :straight, "Straighten edges (available when output format is either png, jpg, or eps)", :default => false
 end
-
+Trollop::die :coloring, "must be 0, 1, or 2" if (opts[:coloring] > 2 || opts[:coloring] < 0)
 ############### main program ############### 
 
 if ARGV.size != 2

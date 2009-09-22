@@ -371,10 +371,25 @@ class FormalContext
 
       attr_str = attrfull.join('<br />')
       attr_str = attr_str == "" ? "     " : attr_str
-      attr_color = (!opts[:coloring] || /\A\s+\z/ =~ attr_str) ? "white" : "lightblue"
+      
+      if opts[:coloring] == 0 or /\A\s+\z/ =~ attr_str
+        attr_color = "white"
+      elsif opts[:coloring] == 1
+        attr_color = "lightblue"
+      elsif opts[:coloring] == 2
+        attr_color = "gray87"
+      end
+      
       obj_str = objfull.join('<br />')
       obj_str = obj_str == "" ? "     " : obj_str
-      obj_color = (!opts[:coloring] || /\A\s+\z/ =~ obj_str) ? "white" : "pink"
+
+      if opts[:coloring] == 0 or /\A\s+\z/ =~ obj_str
+        obj_color = "white"
+      elsif opts[:coloring] == 1
+        obj_color = "pink"
+      elsif opts[:coloring] == 2
+        obj_color = "gray92"
+      end
 
       label = "<<table border=\"0\" cellborder=\"1\" cellspacing=\"0\">" + 
       "<tr><td balign=\"left\" align=\"left\" bgcolor=\"#{attr_color}\">#{attr_str}</td></tr>" +
