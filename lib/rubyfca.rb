@@ -327,8 +327,9 @@ class FormalContext
   ## For options, see 'rubyfca'
   def generate_dot(opts)
     index_max_width = @concepts.size.to_s.split(//).size
-
-    clattice = RubyGraphviz.new("clattice", :rankdir => "", :nodesep => "0.4", :ranksep => "0.2")
+     nodesep = @opts[:nodesep] ? @opts[:nodesep].to_s : "0.4"
+     ranksep = @opts[:ranksep] ? @opts[:ranksep].to_s : "0.2"
+    clattice = RubyGraphviz.new("clattice", :rankdir => "", :nodesep => nodesep, :ranksep => ranksep)
 
     if opts[:circle] and opts[:legend]
       legend   = RubyGraphviz.new("legend", :rankdir => "TB", :lebelloc => "t", :centered => "false")

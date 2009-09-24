@@ -25,13 +25,18 @@ where:
 [options]:
 EOS
 
-  opt :circle,  "Use circle shaped concept nodes", :default=> false
   opt :full, "Do not contract concept labels", :default=> false
-  opt :legend, "Print the legend of concept nodes (available only when using circle node shape)", :default => false
   opt :coloring, "Color concept nodes [0 = none (default), 1 = lightblue/pink, 2 = monochrome]", :default => 0
-  opt :straight, "Straighten edges (available when output format is either png, jpg, or eps)", :default => false
+  opt :straight, "Straighten edges (available when output format is either png, jpg, svg, pdf, or eps)", :default => false
+  opt :nodesep, "Size of separation between sister nodes (from 0.1 to 5.0)", :default => 0.4
+  opt :ranksep, "Size of separation between ranks (from 0.1 to 5.0)", :default => 0.2
+  opt :legend, "Print the legend of concept nodes (available only when using circle node shape)", :default => false
+  opt :circle,  "Use circle shaped concept nodes", :default=> false
+
 end
 Trollop::die :coloring, "must be 0, 1, or 2" if (opts[:coloring] > 2 || opts[:coloring] < 0)
+Trollop::die :ranksep,  "must be within 0.1 - 5.0" if (opts[:ranksep] < 0.1 || opts[:ranksep] > 5.0)
+Trollop::die :nodesep,  "must be within 0.1 - 5.0" if (opts[:nodesep] < 0.1 || opts[:nodesep] > 5.0)
 ############### main program ############### 
 
 if ARGV.size != 2
@@ -47,7 +52,7 @@ filename2 = ARGV[1]  #output filename
 input_type  = filename1.slice(/\.[^\.]+\z/).split(//)[1..-1].join("")
 output_type = filename2.slice(/\.[^\.]+\z/).split(//)[1..-1].join("")
 
-if (input_type !~ /\A(cxt|csv)\z/ || output_type !~ /\A(dot|png|jpg|eps)\z/)
+if (input_type !~ /\A(cxt|csv)\z/ || output_type !~ /\A(dot|png|jpg|svg|pdf|eps)\z/)
   showerror("These file extensions are not (yet) supported.", 1)
 end
 
@@ -92,6 +97,10 @@ when "png"
   ctxt.generate_img(filename2, "png", opts)
 when "jpg"
   ctxt.generate_img(filename2, "jpg", opts)
+when "svg"
+  ctxt.generate_img(filename2, "svg", opts)
+when "pdf"
+  ctxt.generate_img(filename2, "pdf", opts)
 when "eps"
   ctxt.generate_img(filename2, "eps", opts)
 end
