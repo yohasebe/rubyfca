@@ -353,7 +353,9 @@ class FormalContext
       attrfull = []  
       0.upto(@gammaM.size - 1) do |j|
         if @gammaM[j][i] == 2
-          obj = opts[:full] ? @objects[j] + " " + [0x261C].pack("U") : @objects[j]
+	        # pointing finger does not appear correctly in eps... 
+          # obj = opts[:full] ? @objects[j] + " " + [0x261C].pack("U") : @objects[j]
+          obj = opts[:full] ? @objects[j] + "*" : @objects[j]
           objfull << obj
         elsif @gammaM[j][i] == 1
           objfull << @objects[j]
@@ -361,7 +363,9 @@ class FormalContext
       end
       0.upto(@muM.size - 1) do |k|
         if @muM[k][i] == 2
-          att = opts[:full] ? @attributes[k] + " " + [0x261C].pack("U") : @attributes[k]
+	        # pointing finger does not appear correctly in eps... 
+          # att = opts[:full] ? @attributes[k] + " " + [0x261C].pack("U") : @attributes[k]
+          att = opts[:full] ? @attributes[k] + "*" : @attributes[k]
           attrfull << att
         elsif @muM[k][i] == 1
           attrfull << @attributes[k]
