@@ -1,13 +1,18 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 ## lib/rubyfca.rb -- Formal Concept Analysis tool in Ruby
 ## Author::    Yoichiro Hasebe (mailto: yohasebe@gmail.com)
 ##             Kow Kuroda (mailto: kuroda@nict.go.jp)   
 ## Copyright:: Copyright 2009 Yoichiro Hasebe and Kow Kuroda
 ## License::   GNU GPL version 3
 
-# -*- coding: utf-8 -*-
+$: << File.dirname(__FILE__) + "/rubyfca"
 
 require 'csv'
 require 'ruby_graphviz'
+require 'version'
+require 'trollop'
 
 private
 
@@ -45,6 +50,7 @@ class FormalContext
     if input.size == 0
       showerror("File is empty", 1)
     end
+    input.gsub!(" ", "&nbsp;")
     begin
       case mode
       when /cxt\z/

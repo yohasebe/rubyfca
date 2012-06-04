@@ -2,14 +2,12 @@
 # -*- coding: utf-8 -*-
 
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
-require 'trollop'
 require 'rubyfca'
-require 'ruby_graphviz'
 
 ################ parse options ##########
 
 opts = Trollop::options do
-  version = File.read(File.dirname(__FILE__) + "/../VERSION")
+  version RubyFCA::VERSION
   banner <<-EOS
   
 RubuFCA converts Conexp CXT data to Graphviz dot format.
