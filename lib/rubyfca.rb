@@ -91,9 +91,10 @@ class FormalContext
   
   def remove_blank(input)
     blank_removed = ""
-    input.each do |line|
-      unless /^\s*$/ =~ line
-        blank_removed << line
+    input.split("\n").each do |line|
+      line = line.strip
+      unless /\A\s*\z/ =~ line
+        blank_removed << line + "\n"
       end
     end
     blank_removed
@@ -200,8 +201,8 @@ class FormalContext
     a1 = extension[0].join("")
     a2 = extension[1].join("")
     if a1 == a2
-      shift extension
-      shift intension
+      extension.shift
+      intension.shift
       anzCpt -= 1
     end
 

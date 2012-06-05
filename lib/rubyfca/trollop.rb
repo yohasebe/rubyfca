@@ -413,7 +413,7 @@ class Parser
 
   ## Print the help message to +stream+.
   def educate stream=$stdout
-    width # just calculate it now; otherwise we have to be careful not to
+    width # just calcurate it now; otherwise we have to be careful not to
           # call this unless the cursor's at the beginning of a line.
 
     left = {}

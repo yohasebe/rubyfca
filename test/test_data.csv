@@ -1,0 +1,7 @@
+       ,Ostrich, Sparrow, Eagle, Lion, Bonobo, Human being
+bird   ,X,X,X,.,.,.
+mammal ,.,.,.,X,X,X
+ape    ,.,.,.,.,X,X
+flying ,.,X,X,.,.,.
+preying,.,.,X,X,.,.
+talking,.,.,.,.,.,X
