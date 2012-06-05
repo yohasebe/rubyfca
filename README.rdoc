@@ -4,7 +4,7 @@ Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
 == Features
 
-* Convert a Conexp's CXT file and generate a Graphviz DOT file, or a PNG/JPG/EPS image file.
+* Convert a Conexp's CXT or CSV file and generate a Graphviz DOT file, or a PNG/JPG/EPS image file.
 * Adopt the Ganter algorithm (through its Perl implementation of Fcastone by Uta Priss).
 
 == Installation
@@ -33,7 +33,6 @@ Install the gem:
 
 == ToDo
 
-* Multiple input formats (such as CSV)
 * Database connection capability
 
 == Links
@@ -42,4 +41,4 @@ under construction
 
 == Copyright
 
-Copyright (c) 2009 Yoichiro Hasebe and Kow Kuroda. See LICENSE for details.
+Copyright (c) 2009-2012 Yoichiro Hasebe and Kow Kuroda. See LICENSE for details.
