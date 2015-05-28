@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
+Encoding.default_external = "UTF-8"
+
 
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'rubyfca'
@@ -57,8 +59,10 @@ end
 #
 # input data is kept as plain text
 #
-f = File.open(filename1, "r")
+f = File.open(filename1, "r:UTF-8:UTF-8")
+
 inputdata = f.read
+inputdata.gsub!(/\r\n?/){"\n"}
 f.close
 
 #

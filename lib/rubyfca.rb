@@ -51,16 +51,16 @@ class FormalContext
       showerror("File is empty", 1)
     end
     input.gsub!(" ", "&nbsp;")
-    begin
+    # begin
       case mode
       when /cxt\z/
         read_cxt(input)
       when /csv\z/
         read_csv(input)
       end
-    rescue => e
-      showerror("Input data contains a syntax problem.", 1)
-    end
+    # rescue => e
+    #   showerror("Input data contains a syntax problem.", 1)
+    # end
     @label_contraction = label_contraction
   end
   
