@@ -2,10 +2,7 @@
 
 Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
-<kbd>
-    <img src="./samples/fca-source-result.png" width="800px"/>
-</kbd>
-
+<img src="./samples/fca-source-result.png" width="800px"/>
 
 ## Change Log
 
