@@ -42,7 +42,7 @@ Install the gem:
     <source file>
            ".xlsx", ".csv" ,".cxt"
     <output file>
-           ."svg", ".png", ".jpg", ".eps", or ".dot"
+           ".svg", ".png", ".jpg", ".eps", or ".dot"
     [options]:
               --full, -f:   Do not contract concept labels
       --coloring, -c <i>:   Color concept nodes [0 = none (default), 1 =
