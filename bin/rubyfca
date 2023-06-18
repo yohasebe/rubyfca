@@ -1,90 +1,92 @@
 #!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+
+# frozen_string_literal: true
+
 Encoding.default_external = "UTF-8"
 
-
-$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
-require 'rubyfca'
+require_relative "../lib/rubyfca"
 
 ################ parse options ##########
 
-opts = Trollop::options do
+opts = Optimist.options do
   version RubyFCA::VERSION
-  banner <<-EOS
-  
-RubuFCA converts Conexp CXT data to Graphviz dot format.
+  banner <<~USAGE
+    RubuFCA converts Conexp CXT data to Graphviz dot format.
 
-Usage:
-       rubyfca [options] <source file> <output file>
+    Usage:
+           rubyfca [options] <source file> <output file>
 
-where:
-<source file>
-       ".cxt", ".csv"
-<output file>
-       ."dot", ".png", ".jpg", or ".eps"
-[options]:
-EOS
+    where:
+    <source file>
+           ".xlsx", ".csv", ".cxt"
+    <output file>
+           ".svg", ".png", ".jpg", ".eps", or ."dot"
+    [options]:
+  USAGE
 
-  opt :full, "Do not contract concept labels", :default=> false
-  opt :coloring, "Color concept nodes [0 = none (default), 1 = lightblue/pink, 2 = monochrome]", :default => 0
-  opt :straight, "Straighten edges (available when output format is either png, jpg, svg, pdf, or eps)", :default => false
-  opt :nodesep, "Size of separation between sister nodes (from 0.1 to 5.0)", :default => 0.4
-  opt :ranksep, "Size of separation between ranks (from 0.1 to 5.0)", :default => 0.2
-  opt :legend, "Print the legend of concept nodes (available only when using circle node shape)", :default => false
-  opt :circle,  "Use circle shaped concept nodes", :default=> false
-
-end
-Trollop::die :coloring, "must be 0, 1, or 2" if (opts[:coloring] > 2 || opts[:coloring] < 0)
-Trollop::die :ranksep,  "must be within 0.1 - 5.0" if (opts[:ranksep] < 0.1 || opts[:ranksep] > 5.0)
-Trollop::die :nodesep,  "must be within 0.1 - 5.0" if (opts[:nodesep] < 0.1 || opts[:nodesep] > 5.0)
-############### main program ############### 
-
-if ARGV.size != 2
-  showerror("Input and output files are not set properly", 1) 
+  opt :full, "Do not contract concept labels", default: false
+  opt :coloring, "Color concept nodes [0 = none (default), 1 = lightblue/pink, 2 = monochrome]", default: 0
+  opt :straight, "Straighten edges (available when output format is either png, jpg, svg, pdf, or eps)", default: false
+  opt :nodesep, "Size of separation between sister nodes (from 0.1 to 5.0)", default: 0.4
+  opt :ranksep, "Size of separation between ranks (from 0.1 to 5.0)", default: 0.2
+  opt :legend, "Print the legend of concept nodes (available only when using circle node shape)", default: false
+  opt :circle, "Use circle shaped concept nodes", default: false
 end
 
-filename1 = ARGV[0]  #input  filename
-filename2 = ARGV[1]  #output filename
+Trollop.die :coloring, "must be 0, 1, or 2" if opts[:coloring] > 2 || opts[:coloring].negative?
+Trollop.die :ranksep,  "must be within 0.1 - 5.0" if opts[:ranksep] < 0.1 || opts[:ranksep] > 5.0
+Trollop.die :nodesep,  "must be within 0.1 - 5.0" if opts[:nodesep] < 0.1 || opts[:nodesep] > 5.0
+
+############### main program ###############
+
+ARGV.size != 2 && showerror("Input and output files are not set properly", 1)
+
+filename1 = ARGV[0]  # input filename
+filename2 = ARGV[1]  # output filename
 
 #
 # extract input and output file types
 #
-input_type  = filename1.slice(/\.[^\.]+\z/).split(//)[1..-1].join("")
-output_type = filename2.slice(/\.[^\.]+\z/).split(//)[1..-1].join("")
+input_type  = filename1.slice(/\.[^.]+\z/).split(//)[1..].join("")
+output_type = filename2.slice(/\.[^.]+\z/).split(//)[1..].join("")
 
-if (input_type !~ /\A(cxt|csv)\z/ || output_type !~ /\A(dot|png|jpg|svg|pdf|eps)\z/)
+if (input_type !~ /\A(cxt|csv|xlsx)\z/ ||
+    output_type !~ /\A(dot|png|jpg|svg|pdf|eps)\z/)
   showerror("These file extensions are not (yet) supported.", 1)
 end
 
 #
-# input data is kept as plain text
+# input data is kept as plain text unless file type is "xlsx"
 #
-f = File.open(filename1, "r:UTF-8:UTF-8")
 
-inputdata = f.read
-inputdata.gsub!(/\r\n?/){"\n"}
-f.close
+if input_type == "xlsx"
+  inputdata = filename1
+else
+  f = File.open(filename1, "r:UTF-8:UTF-8")
+  inputdata = f.read
+  inputdata.gsub!(/\r\n?/) { "\n" }
+  f.close
+end
 
 #
 # ask for confirmation of overwriting an exisiting file
 #
-if (File.exist?(filename2) && !opts[:sil])
+if File.exist?(filename2) && !opts[:sil]
   print "#{filename2} exists and will be overwritten, OK? [y/n]"
-  var1 = STDIN.gets;
-  if /y/i !~ var1
-    exit;
-  end
+  var1 = $stdin.gets
+  exit if /y/i !~ var1
 end
 
 #
 # context data is converted to a hash table
 #
 begin
-  ctxt = FormalContext.new(inputdata, input_type, !opts[:full])
+  ctxt = FormalContext.new(inputdata, input_type, label_contraction: !opts[:full])
   ctxt.calcurate
-# rescue => e
-#   puts e
-#   showerror("Source data may have problems. Process aborted.", 1)
+rescue StandardError => e
+  pp e.message
+  pp e.backtrace
+  showerror("Source data may have problems. Process aborted.", 1)
 end
 
 #
@@ -92,8 +94,8 @@ end
 #
 case output_type
 when "dot"
-  File.open(filename2, "w") do |f|
-    f.write(ctxt.generate_dot(opts))
+  File.open(filename2, "w") do |file|
+    file.write(ctxt.generate_dot(opts))
   end
 when "png"
   ctxt.generate_img(filename2, "png", opts)

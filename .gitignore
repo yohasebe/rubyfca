@@ -19,3 +19,8 @@ tmp
 *.bak
 *.~
 *.log
+.rubocop.yml
+.solargraph.yml
+tags
+.document
+test/test_output/*

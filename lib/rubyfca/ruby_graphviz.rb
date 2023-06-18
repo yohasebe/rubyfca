@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# -*- coding: utf-8 -*-
+# frozen_string_literal: true
 
 ## lib/ruby_graphviz.rb -- graphviz dot generator library
 ## Author::    Yoichiro Hasebe (mailto: yohasebe@gmail.com)
@@ -7,8 +6,7 @@
 ## License::   GNU GPL version 3
 
 class RubyGraphviz
-  
-  ## Example: 
+  ## Example:
   ##
   ##   g = RubyGraphviz.new("newgraph", {:rankdir => "LR", :nodesep => "0.4", :ranksep => "0.2"})
   ##
@@ -17,7 +15,7 @@ class RubyGraphviz
     @graph_data = graph_hash
     @nodes = []
     @edges = []
-    @dot   = ""
+    @dot   = +""
     create_graph
   end
 
@@ -36,31 +34,31 @@ class RubyGraphviz
       end
       @dot << "]"
     end
-    @dot << ";\n"    
+    @dot << ";\n"
   end
-  
+
   def finish_graph
     @dot << "}\n"
   end
 
   def create_edge(edgetype, nid1, nid2, edge_hash = nil)
-    temp = "  #{nid1.to_s} #{edgetype} #{nid2.to_s}"
+    temp = "  #{nid1} #{edgetype} #{nid2}"
     index = 0
     if edge_hash
-      temp << " ["      
+      temp << " ["
       edge_hash.each do |k, v|
         k = k.to_s
         temp << "#{k} = \"#{v}\""
         index += 1
         temp << ", " unless index == edge_hash.size
       end
-      temp << "]"      
+      temp << "]"
     end
-    return temp
+    temp
   end
-  
+
   public
-  
+
   ## Add a subgraph to a graph (recursively)
   ##
   ## Example:
@@ -70,7 +68,7 @@ class RubyGraphviz
   def subgraph(graph)
     @dot << graph.to_dot.sub(/\Agraph/, "subgraph")
   end
-  
+
   ## Set default options for nodes
   ##
   ## Example:
@@ -108,7 +106,7 @@ class RubyGraphviz
     @dot << "];\n"
     self
   end
-  
+
   ## Create a node with its options
   ##
   ## Example:
@@ -116,7 +114,7 @@ class RubyGraphviz
   ##   graph.node("node-01", :label => "Node 01", :fillcolor => "pink")
   ##
   def node(node_id, node_hash = nil)
-    @dot << "  #{node_id.to_s}"
+    @dot << "  #{node_id}"
     index = 0
     if node_hash
       @dot << " ["
@@ -132,22 +130,22 @@ class RubyGraphviz
     self
   end
 
-  ## Create a non-directional edge (connection line between nodes) with its options 
+  ## Create a non-directional edge (connection line between nodes) with its options
   ##
   ## Example:
   ##
   ##   graph.edge("node-01", "node-02", :label => "connecting 1 and 2", :color => "lightblue")
-  ## 
+  ##
   def edge(nid1, nid2, edge_hash = nil)
     @dot << create_edge("--", nid1, nid2, edge_hash) + ";\n"
     self
   end
 
-  ## Create a directional edge (arrow from node to node) with its options 
+  ## Create a directional edge (arrow from node to node) with its options
   ##
   ## Example:
   ##   graph.arrow_edge("node-01", "node-02", :label => "from 1 to 2", :color => "lightblue")
-  ##  
+  ##
   def arrow_edge(nid1, nid2, edge_hash = nil)
     @dot << create_edge("->", nid1, nid2, edge_hash) + ";\n"
     self
@@ -159,12 +157,11 @@ class RubyGraphviz
     @dot << "{rank=same " + create_edge("--", nid1, nid2, edge_hash) + "}\n"
     self
   end
-  
+
   ## Convert graph into dot formatted data
   ##
   def to_dot
     finish_graph
-    @dot = @dot.gsub(/\"\</m, "<").gsub(/\>\"/m, ">")
-    return @dot
+    @dot.gsub(/"</m, "<").gsub(/>"/m, ">")
   end
 end
