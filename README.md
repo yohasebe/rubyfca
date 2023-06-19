@@ -11,7 +11,7 @@ Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
 ## Features
 
-* Converts data in XLSX (Microsoft Excel), CSV (comma-separated values), or CXT ([Conexp](https://github.com/fcatools) and generate a Graphviz DOT file, a SVG/EPS vector image file, or /a PNG/JPG bitmap file.
+* Converts data in XLSX (Microsoft Excel), CSV (comma-separated values), or CXT ([Conexp](https://github.com/fcatools)) and generate a Graphviz DOT file, a SVG/EPS vector image file, or /a PNG/JPG bitmap file.
 * Adopts the Ganter algorithm (with reference to its Perl implementation of [Fcastone](https://upriss.github.io/fcastone) by Uta Priss).
 
 ## Dependencies
