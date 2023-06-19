@@ -108,7 +108,7 @@ XXX...
 .....X
 ```
 
-## Output
+### Output
 
 `rubyfca input_file output_file --coloring 1 --full --nodesep 0.8 --ranksep 0.3 --straight`
 
@@ -122,11 +122,17 @@ XXX...
 
 <img src="./images/sample_03.svg" width="800px"/>
 
+**N.B.** The arrangement of elements in the right-hand side of the image above has been a little modified for  better visibility.
+
 ### Miscellaneous
 
-#### RGB
+#### RGB Color Model
 
-<img src="./images/color-source-result.png" width="800px"/>
+<img src="./images/color-source-result.png" width="600px"/>
+
+#### Natural numbers 
+
+<img src="./images/fca-source-result.png" width="800px"/>
 
 ## References
 
