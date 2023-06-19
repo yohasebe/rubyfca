@@ -122,8 +122,8 @@ XXX...
 
 ## Authors
 
-- Yoichiro Hasebe 
-- Kow Kuroda
+- [Yoichiro Hasebe](https://github.com/yohasebe) 
+- [Kow Kuroda](https://github.com/kow-k)
 
 ## License
 
