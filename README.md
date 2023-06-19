@@ -122,9 +122,9 @@ XXX...
 
 <img src="./images/sample_03.svg" width="800px"/>
 
-## Gallery
+### Miscellaneous
 
-### RGB
+#### RGB
 
 <img src="./images/color-source-result.png" width="800px"/>
 
