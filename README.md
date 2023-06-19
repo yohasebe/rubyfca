@@ -2,12 +2,12 @@
 
 Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
-<img src="./samples/fca-source-result.png" width="800px"/>
+<img src="./images/fca-source-result.png" width="800px"/>
 
 ## Change Log
 
+- More test cases added [June 19, 2023]
 - Microsoft Excel `.xlsx` files supported [June 18, 2023]
-- Sample files added [June 18, 2023]
 
 ## Features
 
@@ -63,7 +63,7 @@ Install the gem:
 #### XLSX (Excel)
 
 <kbd>
-    <img src="./samples/xlsx-sample.png" width="800px"/>
+    <img src="./images/xlsx-sample.png" width="800px"/>
 </kbd>
 
 #### CSV
@@ -110,17 +110,21 @@ XXX...
 
 `rubyfca input_file output_file --coloring 1 --full --nodesep 0.8 --ranksep 0.3 --straight`
 
-<img src="./samples/sample_01.svg" width="500px"/>
-
+<img src="./images/sample_01.svg" width="500px"/>
 
 `rubyfca input_file output_file --coloring 2 --nodesep 0.5 --ranksep 0.3`
 
-<img src="./samples/sample_02.svg" width="400px"/>
+<img src="./images/sample_02.svg" width="400px"/>
 
 `rubyfca input_file output_file --circle --legend --coloring 1 --full --nodesep 0.8 --ranksep 0.3 --straight`
 
-<img src="./samples/sample_03.svg" width="800px"/>
+<img src="./images/sample_03.svg" width="800px"/>
 
-## Copyright
+## Authors
 
-Copyright (c) 2009-2023 Yoichiro Hasebe and Kow Kuroda. See LICENSE for details.
+- Yoichiro Hasebe 
+- Kow Kuroda
+
+## License
+
+See LICENSE for details.
