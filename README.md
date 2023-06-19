@@ -122,6 +122,12 @@ XXX...
 
 <img src="./images/sample_03.svg" width="800px"/>
 
+## Gallery
+
+### RGB
+
+<img src="./images/color-source-result.png" width="800px"/>
+
 ## References
 
 Yoichiro Hasebe and Kow Kuroda. 2009. [Extraction of English Ditransitive Constructions Using Formal Concept Analysis](https://aclanthology.org/Y09-2028/). In *Proceedings of the 23rd Pacific Asia Conference on Language, Information and Computation*, Volume 2, pages 678–685, Hong Kong. City University of Hong Kong.
