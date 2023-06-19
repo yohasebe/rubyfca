@@ -18,9 +18,11 @@ Command line tool for Formal Concept Analysis (FCA) written in Ruby.
 
 - [Graphviz](https://graphviz.org/)
 
-For example, to install Graphviz using Homebrew on MacOS, execute the following command 
+To install Graphviz using Homebrew on MacOS, for example, execute the following command:
 
     brew install graphviz
+
+For installation instructions for other platforms, see the [Graphviz download page](https://graphviz.org/download/).
 
 ## Installation
 
@@ -119,6 +121,10 @@ XXX...
 `rubyfca input_file output_file --circle --legend --coloring 1 --full --nodesep 0.8 --ranksep 0.3 --straight`
 
 <img src="./images/sample_03.svg" width="800px"/>
+
+## References
+
+Yoichiro Hasebe and Kow Kuroda. 2009. [Extraction of English Ditransitive Constructions Using Formal Concept Analysis](https://aclanthology.org/Y09-2028/). In *Proceedings of the 23rd Pacific Asia Conference on Language, Information and Computation*, Volume 2, pages 678–685, Hong Kong. City University of Hong Kong.
 
 ## Authors
 
